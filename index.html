@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Storage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script>
 </head>
-<body>
-<form id="from" onsubmit="sendData()">
-    <input id="input" type="text" placeholder="Write something...">
-    <input id="file-input" type="file">
-    <input type="submit">
-</form>
-<div id="status"></div>
-<ul>
-    <li id="categories">
-    </li>
-</ul>
+<body class="background">
+<div style="margin-top: 40px; margin-left: 15px">
+    <form id="from" onsubmit="sendData()">
+        <div class="input-group mb-3" style="padding-right: 1250px">
+            <input type="text" class="form-control" placeholder="Ввод" aria-label="Ввод" aria-describedby="basic-addon2">
+        </div>
+        <form>
+            <div>
+                <input id="file-input" type="file">
+                <input type="submit">
+            </div>
+        </form>
+    </form>
+
+
+
+    <div  role="alert" id="status" style="width: 25%; margin-top: 20px">
+    </div>
+
+
+    <ul>
+        <li id="categories">
+        </li>
+    </ul>
+</div>
 </body>
 
 <script>
     const url = "http://localhost:8080"
 
     async function sendData() {
+
 
         const inputElement = document.getElementById("input")
         const input = inputElement.value
@@ -44,6 +63,7 @@
         } catch (error) {
             console.error('Error in sending data: ', error)
             document.getElementById("status").innerText = "Error in sending data"
+            document.getElementById("status").className = "alert alert-danger"
         }
     }
 
@@ -71,7 +91,9 @@
             }
         }).catch(function (error) {
             console.log(error.message)
-            document.getElementById("status").innerText = "Error in getting categories"
+            const status = document.getElementById("status")
+            status.innerText = "Error in getting categories"
+            status.className = 'alert alert-danger'
         });
     }
 
@@ -80,3 +102,4 @@
 
 </script>
 </html>
+
