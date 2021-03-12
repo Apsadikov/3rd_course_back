@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form id="from">
+<form id="from" onsubmit="sendData()">
     <input id="input" type="text" placeholder="Write something...">
     <input id="file-input" type="file">
     <input type="submit">
@@ -16,4 +16,33 @@
     </li>
 </ul>
 </body>
+
+<script>
+    const url = "http://localhost:8080"
+
+    async function sendData() {
+
+        const inputElement = document.getElementById("input")
+        const input = inputElement.value
+
+        const fileInput = document.getElementById("file-input").files[0]
+        const formData = new FormData()
+
+        if (fileInput !== undefined){
+            formData.append("file", fileInput)
+        }
+
+        console.log(fileInput)
+        try {
+            const response = await fetch(url+"/data/", {
+                method: 'POST',
+                body: fileInput === undefined ? input : formData,
+            });
+            const json = await response.json();
+            console.log('Success in sending data: ', JSON.stringify(json))
+        } catch (error) {
+            console.error('Error in sending data: ', error)
+        }
+    }
+</script>
 </html>
