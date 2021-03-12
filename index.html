@@ -44,5 +44,35 @@
             console.error('Error in sending data: ', error)
         }
     }
+
+    async function showCategories() {
+
+        fetch(url + "/category/", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json()
+        }).then(function (json) {
+            console.log(json)
+            const catElement = document.getElementById("categories")
+            catElement.innerHTML = ""
+            for (let category of json) {
+                const elem = document.createElement("li")
+                const a = document.createElement("a")
+                a.dataset.id = category.id
+                a.innerText = category.title
+                a.href = url + "/category/" + category.id
+                elem.appendChild(a)
+                catElement.appendChild(elem)
+            }
+        }).catch(function (error) {
+            console.log(error.message)
+        });
+    }
+
+    showCategories()
+
 </script>
 </html>
