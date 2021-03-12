@@ -40,8 +40,10 @@
             });
             const json = await response.json();
             console.log('Success in sending data: ', JSON.stringify(json))
+            document.getElementById("status").innerText = "Success in sending data"
         } catch (error) {
             console.error('Error in sending data: ', error)
+            document.getElementById("status").innerText = "Error in sending data"
         }
     }
 
@@ -69,6 +71,7 @@
             }
         }).catch(function (error) {
             console.log(error.message)
+            document.getElementById("status").innerText = "Error in getting categories"
         });
     }
 
