@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="api.js"></script>
 </head>
 <body>
 <form id="from" onsubmit="sendData()">
@@ -18,9 +19,10 @@
 </body>
 
 <script>
-    const url = "http://localhost:8080"
 
     async function sendData() {
+
+        event.preventDefault()
 
         const inputElement = document.getElementById("input")
         const input = inputElement.value
@@ -31,33 +33,12 @@
         if (fileInput !== undefined){
             formData.append("file", fileInput)
         }
-
-        console.log(fileInput)
-        try {
-            const response = await fetch(url+"/data/", {
-                method: 'POST',
-                body: fileInput === undefined ? input : formData,
-            });
-            const json = await response.json();
-            console.log('Success in sending data: ', JSON.stringify(json))
-            document.getElementById("status").innerText = "Success in sending data"
-        } catch (error) {
-            console.error('Error in sending data: ', error)
-            document.getElementById("status").innerText = "Error in sending data"
-        }
+        await api('POST', "/data/", "sending data", fileInput === undefined ? input : formData)
     }
 
     async function showCategories() {
 
-        fetch(url + "/category/", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (response) {
-            return response.json()
-        }).then(function (json) {
-            console.log(json)
+            const json = await api('GET', "/category/", "getting categories", null)
             const catElement = document.getElementById("categories")
             catElement.innerHTML = ""
             for (let category of json) {
@@ -69,10 +50,6 @@
                 elem.appendChild(a)
                 catElement.appendChild(elem)
             }
-        }).catch(function (error) {
-            console.log(error.message)
-            document.getElementById("status").innerText = "Error in getting categories"
-        });
     }
 
     showCategories()
