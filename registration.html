@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="api.js"></script>
+</head>
+<body>
+<form onsubmit="sendForm()">
+    <input id="username" type="text" placeholder="Username">
+    <input id="email" type="email" placeholder="email">
+    <input id="password" type="password" placeholder="password">
+    <input type="submit">
+</form>
+</body>
+<script>
+
+    const url = "http://localhost:8081";
+
+   async function sendForm() {
+
+        event.preventDefault()
+
+        const usernameElement = document.getElementById("username")
+        const username = usernameElement.value
+        const emailElement = document.getElementById("email")
+        const email = emailElement.value
+        const passwordElement = document.getElementById("password")
+        const password = passwordElement.value
+        const data = {
+            username: username,
+            email: email,
+            password: password
+        };
+        console.log(data)
+        const response = await api(url,'POST', "/sign_up/", "registration", JSON.stringify(data), {'Content-Type': 'application/json'})
+       console.log(response)
+        setCookie(response)
+       window.location.href = "index.html"
+    }
+
+</script>
+</html>

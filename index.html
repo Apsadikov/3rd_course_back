@@ -20,6 +20,8 @@
 
 <script>
 
+    const url = "http://localhost:8080"
+
     async function sendData() {
 
         event.preventDefault()
@@ -33,12 +35,12 @@
         if (fileInput !== undefined){
             formData.append("file", fileInput)
         }
-        await api('POST', "/data/", "sending data", fileInput === undefined ? input : formData)
+        await api(url, 'POST', "/data/", "sending data", fileInput === undefined ? input : formData)
     }
 
     async function showCategories() {
 
-            const json = await api('GET', "/category/", "getting categories", null)
+            const json = await api(url, 'GET', "/category/", "getting categories", null)
             const catElement = document.getElementById("categories")
             catElement.innerHTML = ""
             for (let category of json) {
@@ -52,8 +54,15 @@
             }
     }
 
+    function checkCookie() {
+        if (document.cookie === '') {
+            window.location.href = "auth.html"
+        }
+    }
+
     showCategories()
     setInterval(showCategories, 3000)
+    setInterval(checkCookie, 3000)
 
 </script>
 </html>
