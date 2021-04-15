@@ -1,0 +1,14 @@
+{
+  "name": "arch-front",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "./node_modules/.bin/_mocha test/test-ui.js"
+  },
+  "dependencies": {
+    "geckodriver": "^1.22.3"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2",
+    "selenium-webdriver": "^4.0.0-beta.3"
+  }
+}
