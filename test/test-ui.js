@@ -27,7 +27,6 @@ describe('test', function() {
     await sleep(3000)
     assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/auth.html');
   })
-
   it('register', async function() {
     await driver.get("http://localhost:63342/arch-front/registration.html")
     await driver.findElement(By.id("username")).click()
@@ -39,5 +38,15 @@ describe('test', function() {
     await driver.findElement(By.css("input:nth-child(4)")).click()
     await sleep(3000)
     assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/auth.html');
+  })
+  it('auth', async function() {
+    await driver.get("http://localhost:63342/arch-front/auth.html")
+    await driver.findElement(By.id("username")).click()
+    await driver.findElement(By.id("username")).sendKeys("ttt")
+    await driver.findElement(By.id("password")).click()
+    await driver.findElement(By.id("password")).sendKeys("ttt")
+    await driver.findElement(By.css("input:nth-child(3)")).click()
+    await sleep(3000)
+    assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/index.html');
   })
 })
