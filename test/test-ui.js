@@ -9,7 +9,7 @@ describe('test', function() {
   this.timeout(30000)
   let driver
   let vars
-  beforeEach(async function() {
+  before(async function() {
     driver = await new Builder().forBrowser('firefox').build()
     vars = {}
   })
@@ -48,5 +48,14 @@ describe('test', function() {
     await driver.findElement(By.css("input:nth-child(3)")).click()
     await sleep(3000)
     assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/index.html');
+  })
+  it('add string', async function() {
+    await driver.get("http://localhost:63342/arch-front/index.html")
+    await driver.findElement(By.id("input")).click()
+    await driver.findElement(By.id("input")).sendKeys("string")
+    await driver.findElement(By.css("input:nth-child(3)")).click()
+    await sleep(3000)
+    var categories = await driver.findElement(By.id("categories")).getText()
+    assert.strictEqual(categories, 'plain/text');
   })
 })
