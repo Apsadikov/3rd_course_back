@@ -16,6 +16,13 @@ describe('test', function() {
   after(async function() {
     await driver.quit();
   })
+  it('register from auth', async function() {
+    await driver.get("http://localhost:63342/arch-front/auth.html")
+    await sleep(1000)
+    await driver.findElement(By.xpath("//*[text()[contains(.,'Registration')]]")).click();
+    await sleep(3000)
+    assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/registration.html');
+  })
   it('wrong-auth', async function() {
     await driver.get("http://localhost:63342/arch-front/auth.html")
     await sleep(3000)
@@ -64,5 +71,15 @@ describe('test', function() {
     await sleep(3000)
     var categories = await driver.findElement(By.id("categories")).getText()
     assert.notStrictEqual(categories, 'plain/text');
+  })
+  it('add file', async function() {
+    await driver.get("http://localhost:63342/arch-front/index.html")
+    var fileInput = By.css("input[type=file]");
+    var filePath = "C:\\Users\\Гульназ\\Pictures\\Screenshots\\8.1.png";
+    await driver.findElement(fileInput).sendKeys(filePath);
+    await driver.findElement(By.css("input:nth-child(3)")).click()
+    await sleep(6000)
+    var categories = await driver.findElement(By.id("categories")).getText()
+    assert.strictEqual(categories, 'image/png');
   })
 })
