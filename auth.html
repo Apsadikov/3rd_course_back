@@ -11,6 +11,8 @@
     <input id="password" type="password" placeholder="password">
     <input type="submit">
 </form>
+<br>
+<button onclick="onRegister()">Registration</button>
 </body>
 <script>
 
@@ -33,6 +35,10 @@
         console.log(response)
         setCookie(response)
         window.location.href = "index.html"
+    }
+
+    function onRegister() {
+        window.location.href = "registration.html"
     }
 
 </script>

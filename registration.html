@@ -36,7 +36,7 @@
         const response = await api(url,'POST', "/sign_up/", "registration", JSON.stringify(data), {'Content-Type': 'application/json'})
        console.log(response)
         setCookie(response)
-       window.location.href = "index.html"
+       window.location.href = "auth.html"
     }
 
 </script>

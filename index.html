@@ -54,15 +54,9 @@
             }
     }
 
-    function checkCookie() {
-        if (document.cookie === '') {
-            window.location.href = "auth.html"
-        }
-    }
-
     showCategories()
     setInterval(showCategories, 3000)
-    setInterval(checkCookie, 3000)
+    setInterval(checkCookie, 1000)
 
 </script>
 </html>
